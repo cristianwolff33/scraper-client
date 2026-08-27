@@ -1,0 +1,26 @@
+project_name: scraper-framework
+output_dir: outputs
+log_level: INFO
+default_currency: PLN
+request_delay_seconds: 0.5
+
+download:
+  parallel_workers: 8
+  timeout_seconds: 30
+  max_retries: 3
+  skip_existing: true
+
+retry:
+  max_attempts: 3
+  initial_delay: 1.0
+  backoff_multiplier: 2.0
+  max_delay: 60.0
+
+browser:
+  headless: true
+  timeout_ms: 30000
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+  viewport_width: 1920
+  viewport_height: 1080
+
+extra: {}

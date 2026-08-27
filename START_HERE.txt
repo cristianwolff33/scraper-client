@@ -1,0 +1,19 @@
+Scraper Framework
+
+After unpacking, the two main folders are:
+- outputs - exported CSV, Excel files and downloaded images
+- data    - framework files and adapter-related data
+
+Setup:
+1. Install Python 3.12 on Windows 64-bit.
+2. Open a terminal in this folder.
+3. Run:
+   python -m pip install -r requirements.txt
+
+Run:
+   python run.py --adapter ADAPTER_NAME --export csv,excel
+
+Create adapter scaffold:
+   python create_adapter.py --name shop_name --mode requests
+
+Do not delete data/framework. It contains the protected framework runtime.
