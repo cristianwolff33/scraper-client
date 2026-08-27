@@ -13,4 +13,9 @@ from main import main  # noqa: E402
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    exit_code = main()
+    if exit_code == 0:
+        from image_links import add_public_image_links
+
+        add_public_image_links()
+    raise SystemExit(exit_code)

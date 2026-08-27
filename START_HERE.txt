@@ -4,6 +4,11 @@ After unpacking, the two main folders are:
 - outputs - exported CSV, Excel files and downloaded images
 - data    - framework files and adapter-related data
 
+Before creating an adapter, fill ADAPTER_REQUEST.md.
+For public image links, set:
+- Domena zdjęć, for example https://mojadomena.pl
+- Marka, for example nazwa-marki
+
 Setup:
 1. Install Python 3.12 on Windows 64-bit.
 2. Open a terminal in this folder.
@@ -12,6 +17,14 @@ Setup:
 
 Run:
    python run.py --adapter ADAPTER_NAME --export csv,excel
+
+After a successful run, CSV/Excel exports are automatically enriched with:
+- zdj
+- zdj2
+- zdj3
+
+These columns point to public image URLs like:
+   https://mojadomena.pl/marka/SKU.jpg
 
 Create adapter scaffold:
    python create_adapter.py --name shop_name --mode requests

@@ -3,6 +3,8 @@ output_dir: outputs
 log_level: INFO
 default_currency: PLN
 request_delay_seconds: 0.5
+image_public_base_url: ""
+image_public_brand: ""
 
 download:
   parallel_workers: 8
