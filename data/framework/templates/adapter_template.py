@@ -94,6 +94,14 @@ class ExampleAdapter(BaseAdapter):
         # from bs4 import BeautifulSoup
         # soup = BeautifulSoup(resp.text, "lxml")
 
+        # TODO: parse the specification/parameters table if the source has one, e.g.:
+        # parameters = {
+        #     row.select_one(".param-name").get_text(strip=True):
+        #     row.select_one(".param-value").get_text(strip=True)
+        #     for row in soup.select(".product-params tr")
+        # }
+        parameters: dict[str, str] = {}
+
         return {
             # TODO: fill in actual field extraction
             "sku": "",          # required
@@ -102,6 +110,7 @@ class ExampleAdapter(BaseAdapter):
             "brand": "",
             "category": "",
             "description": "",
+            "parameters": parameters,  # e.g. {"Color": "black", "Weight": "2kg"}
             "price": None,
             "currency": "PLN",
             "stock": None,

@@ -78,6 +78,7 @@ class ApiAdapter(BaseAdapter):
             "currency": item.get("currency", "PLN"),
             "stock": item.get("stock", item.get("quantity")),
             "image_urls": item.get("images", []),
+            "parameters": item.get("parameters", item.get("specs", {})),
             "attributes": item.get("attributes", {}),
             "metadata": {"source": self.SOURCE_NAME},
         }

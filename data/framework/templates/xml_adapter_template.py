@@ -56,6 +56,18 @@ class XmlFeedAdapter(BaseAdapter):
         def text_list(tag: str) -> list[str]:
             return [c.text.strip() for c in el.findall(f"{ns}{tag}") if c.text]
 
+        def parameters() -> dict[str, str]:
+            # TODO: adjust to the source's actual parameter tag/attribute names,
+            # e.g. <parameters><parameter name="Color">black</parameter></parameters>
+            params_el = el.find(f"{ns}parameters")
+            if params_el is None:
+                return {}
+            return {
+                p.get("name", ""): (p.text or "").strip()
+                for p in params_el.findall(f"{ns}parameter")
+                if p.get("name")
+            }
+
         return {
             "sku": text("sku") or text("id"),       # TODO: adjust tags
             "name": text("name") or text("title"),
@@ -63,6 +75,7 @@ class XmlFeedAdapter(BaseAdapter):
             "brand": text("brand") or text("manufacturer"),
             "category": text("category"),
             "description": text("description"),
+            "parameters": parameters(),
             "price": text("price") or text("price_gross"),
             "currency": text("currency") or "PLN",
             "stock": text("stock") or text("quantity"),

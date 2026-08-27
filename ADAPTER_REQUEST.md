@@ -10,5 +10,6 @@ Pola do pobrania:
 - sku
 - ean
 - images
+- parameters (tabela cech/specyfikacji produktu, np. Kolor, Waga - opcjonalne)
 
 Uwagi:

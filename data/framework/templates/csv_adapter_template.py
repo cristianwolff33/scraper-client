@@ -67,5 +67,10 @@ class CsvFileAdapter(BaseAdapter):
             remapped["image_urls"] = [
                 u.strip() for u in remapped["image_urls"].split("|") if u.strip()
             ]
+        # Any CSV column not listed in COLUMN_MAP is treated as a product
+        # parameter automatically, e.g. extra "Color" / "Weight" columns.
+        remapped["parameters"] = {
+            k: v for k, v in row.items() if k not in self.COLUMN_MAP and v
+        }
         remapped.setdefault("metadata", {"source": self.SOURCE_NAME})
         return remapped

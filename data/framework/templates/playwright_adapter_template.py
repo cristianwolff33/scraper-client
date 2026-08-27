@@ -87,6 +87,11 @@ class PlaywrightAdapter(BaseAdapter):
         page.wait_for_load_state("domcontentloaded")
 
         # TODO: extract fields using page.locator() or page.evaluate()
+        # TODO: parse the specification/parameters table if the source has one, e.g.:
+        # parameters = {
+        #     row.locator(".name").inner_text(): row.locator(".value").inner_text()
+        #     for row in page.locator(".product-params tr").all()
+        # }
         return {
             "sku": "",          # TODO
             "name": "",         # TODO
@@ -94,6 +99,7 @@ class PlaywrightAdapter(BaseAdapter):
             "brand": "",
             "category": "",
             "description": "",
+            "parameters": {},   # e.g. {"Color": "black", "Weight": "2kg"}
             "price": None,
             "currency": "PLN",
             "stock": None,

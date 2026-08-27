@@ -1,6 +1,6 @@
 # Scraper Client
 
-Gotowa paczka klienta do uruchamiania obfuskowanego frameworka scrapującego produkty.
+Gotowa paczka klienta do uruchamiania skompilowanego (Nuitka) frameworka scrapującego produkty.
 
 Framework służy do pobierania danych produktowych takich jak:
 
@@ -13,6 +13,7 @@ Framework służy do pobierania danych produktowych takich jak:
 - cena
 - dostępność
 - zdjęcia
+- parametry/cechy produktu (np. kolor, waga - tabela specyfikacji)
 
 Wyniki trafiają do folderu `outputs`.
 
@@ -57,6 +58,7 @@ Pola do pobrania:
 - sku
 - ean
 - images
+- parameters (opcjonalne - tabela cech/specyfikacji ze strony produktu)
 
 Uwagi:
 - pobierz produkty z kategorii meble
@@ -91,7 +93,7 @@ Po utworzeniu szkieletu adapter trzeba uzupełnić pod konkretną stronę. W Cod
 
 ```text
 Na podstawie ADAPTER_REQUEST.md uzupełnij adapter dla tej strony.
-Pobieraj name, description, sku, ean i images.
+Pobieraj name, description, sku, ean, images i parameters.
 ```
 
 ## Uruchamianie Scrapera
@@ -153,10 +155,10 @@ Jeśli `Domena zdjęć` jest pusta, generowanie publicznych linków zostanie pom
 ## Ważne Uwagi
 
 - Ta paczka jest przygotowana pod Windows 64-bit i Python 3.12.
-- Kod frameworka w `data/framework` jest obfuskowany.
+- Kod frameworka w `data/framework` jest skompilowany do natywnych modułów `.pyd` (Nuitka) - nie jest to zwykły, czytelny Python.
 - Folder `outputs` jest miejscem na wygenerowane dane.
 - Nie commituj realnych wyników scrapowania, zdjęć ani cache.
-- Obfuskacja utrudnia podejrzenie kodu, ale nie jest stuprocentową ochroną przed osobą technicznie zaawansowaną.
+- Kompilacja utrudnia podejrzenie kodu, ale nie jest stuprocentową ochroną przed osobą technicznie zaawansowaną.
 
 ## Szybki Workflow
 
