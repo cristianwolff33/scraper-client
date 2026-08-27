@@ -48,7 +48,7 @@ Przykład:
 # Adapter Request
 
 URL: https://example-shop.pl
-Domena zdjęć: https://mojadomena.pl
+Domena zdjęć: https://mojadomena.pl/produkty/[sku].[rozszerzenie]
 Marka: marka-produktu
 
 Pola do pobrania:
