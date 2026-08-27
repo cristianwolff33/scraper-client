@@ -1,5 +1,7 @@
 Scraper Framework
 
+Full documentation is in README.md.
+
 After unpacking, the two main folders are:
 - outputs - exported CSV, Excel files and downloaded images
 - data    - framework files and adapter-related data
