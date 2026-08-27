@@ -1,6 +1,6 @@
 # Scraper Client
 
-Gotowa paczka klienta do uruchamiania obfuskowanego frameworka scrapującego produkty.
+Gotowa paczka klienta do uruchamiania frameworka scrapującego produkty.
 
 Framework służy do pobierania danych produktowych takich jak:
 
@@ -153,10 +153,8 @@ Jeśli `Domena zdjęć` jest pusta, generowanie publicznych linków zostanie pom
 ## Ważne Uwagi
 
 - Ta paczka jest przygotowana pod Windows 64-bit i Python 3.12.
-- Kod frameworka w `data/framework` jest obfuskowany.
 - Folder `outputs` jest miejscem na wygenerowane dane.
 - Nie commituj realnych wyników scrapowania, zdjęć ani cache.
-- Obfuskacja utrudnia podejrzenie kodu, ale nie jest stuprocentową ochroną przed osobą technicznie zaawansowaną.
 
 ## Szybki Workflow
 
