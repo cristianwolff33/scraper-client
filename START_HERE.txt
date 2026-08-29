@@ -8,7 +8,7 @@ After unpacking, the two main folders are:
 
 Before creating an adapter, fill ADAPTER_REQUEST.md.
 For public image links, set:
-- Domena zdjęć, for example https://mojadomena.pl
+- Domena zdjęć, for example https://mojadomena.pl/produkty/[marka albo kategoria]/[sku].[rozszerzenie]
 - Marka, for example nazwa-marki
 
 Setup:
@@ -21,12 +21,15 @@ Run:
    python run.py --adapter ADAPTER_NAME --export csv,excel
 
 After a successful run, CSV/Excel exports are automatically enriched with:
-- zdj
+- zdj1
 - zdj2
 - zdj3
 
 These columns point to public image URLs like:
-   https://mojadomena.pl/marka/SKU.jpg
+   https://mojadomena.pl/produkty/marka/SKU.jpg
+
+Images are stored under:
+   outputs/images/marka-lub-kategoria/SKU.jpg
 
 Create adapter scaffold:
    python create_adapter.py --name shop_name --mode requests

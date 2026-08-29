@@ -48,7 +48,7 @@ Przykład:
 # Adapter Request
 
 URL: https://example-shop.pl
-Domena zdjęć: https://mojadomena.pl/produkty/[sku].[rozszerzenie]
+Domena zdjęć: https://mojadomena.pl/produkty/[marka albo kategoria]/[sku].[rozszerzenie]
 Marka: marka-produktu
 
 Pola do pobrania:
@@ -66,8 +66,8 @@ Uwagi:
 Znaczenie pól:
 
 - `URL` - adres strony/sklepu, dla którego ma powstać adapter
-- `Domena zdjęć` - publiczna domena, która zostanie użyta do generowania linków do zdjęć
-- `Marka` - segment URL w linkach do zdjęć; jeśli puste, framework użyje marki z danych produktu
+- `Domena zdjęć` - publiczna domena lub szablon URL do zdjęć; obsługiwane są `[marka albo kategoria]`, `[sku]` i `[rozszerzenie]`
+- `Marka` - opcjonalny segment URL/folderu w linkach do zdjęć; jeśli puste, framework użyje marki z danych produktu, a potem kategorii
 - `Pola do pobrania` - lista danych, które adapter ma wyciągać
 - `Uwagi` - dodatkowe zasady dla osoby lub AI tworzącej adapter
 
@@ -113,14 +113,14 @@ Wyniki pojawią się w:
 Zdjęcia są pobierane i nazywane na podstawie SKU:
 
 ```text
-outputs/images/SKU.jpg
-outputs/images/SKU_1.webp
-outputs/images/SKU_2.png
+outputs/images/marka-lub-kategoria/SKU.jpg
+outputs/images/marka-lub-kategoria/SKU_1.webp
+outputs/images/marka-lub-kategoria/SKU_2.png
 ```
 
 Po zakończeniu scrapowania `run.py` automatycznie dopisuje do eksportów CSV/XLSX kolumny:
 
-- `zdj`
+- `zdj1`
 - `zdj2`
 - `zdj3`
 - kolejne, jeśli produkt ma więcej zdjęć
@@ -128,27 +128,28 @@ Po zakończeniu scrapowania `run.py` automatycznie dopisuje do eksportów CSV/XL
 Przykład dla:
 
 ```md
-Domena zdjęć: https://mojadomena.pl
+Domena zdjęć: https://mojadomena.pl/produkty/[marka albo kategoria]/[sku].[rozszerzenie]
 Marka: marka
 ```
 
 oraz zdjęć:
 
 ```text
-ABC123.jpg
-ABC123_1.webp
-ABC123_2.png
+outputs/images/marka/ABC123.jpg
+outputs/images/marka/ABC123_1.webp
+outputs/images/marka/ABC123_2.png
 ```
 
 w eksporcie pojawi się:
 
 ```text
-zdj  = https://mojadomena.pl/marka/ABC123.jpg
-zdj2 = https://mojadomena.pl/marka/ABC123_1.webp
-zdj3 = https://mojadomena.pl/marka/ABC123_2.png
+zdj1 = https://mojadomena.pl/produkty/marka/ABC123.jpg
+zdj2 = https://mojadomena.pl/produkty/marka/ABC123_1.webp
+zdj3 = https://mojadomena.pl/produkty/marka/ABC123_2.png
 ```
 
 Jeśli `Domena zdjęć` jest pusta, generowanie publicznych linków zostanie pominięte.
+Po scrapowaniu zdjęcia są automatycznie porządkowane do `outputs/images/<marka-lub-kategoria>/`.
 
 ## Ważne Uwagi
 
