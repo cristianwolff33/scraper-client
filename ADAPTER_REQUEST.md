@@ -34,5 +34,6 @@ Zasady zdjęć:
 - Zdjęcia nazwij po SKU.
 - Dodaj tyle kolumn zdjęciowych, ile przypada na SKU: zdj1, zdj2, zdj3 itd.
 - Linki do zdjęć mają pasować do wzoru z pola `Domena zdjęć`.
+- Folder w `outputs/images` ma mieć taką samą nazwę jak segment po `/produkty/` w linku.
 
 Uwagi:

@@ -150,6 +150,7 @@ zdj3 = https://mojadomena.pl/produkty/marka/ABC123_2.png
 
 Jeśli `Domena zdjęć` jest pusta, generowanie publicznych linków zostanie pominięte.
 Po scrapowaniu zdjęcia są automatycznie porządkowane do `outputs/images/<marka-lub-kategoria>/`.
+Nazwa folderu w `outputs/images` zawsze odpowiada segmentowi po `/produkty/` w wygenerowanym linku.
 
 ## Ważne Uwagi
 

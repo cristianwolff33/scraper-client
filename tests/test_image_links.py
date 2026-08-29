@@ -86,6 +86,39 @@ def test_moves_loose_images_under_category_and_writes_base_url_links(monkeypatch
     assert row["zdj1"] == "https://cdn.example.pl/produkty/lozka-dzieciece/SKU-9.png"
 
 
+def test_moves_existing_image_folder_to_link_segment(monkeypatch, tmp_path):
+    outputs = _configure_tmp_project(monkeypatch, tmp_path)
+    (tmp_path / "ADAPTER_REQUEST.md").write_text(
+        "Domena zdjęć: "
+        "https://mojadomena.pl/produkty/[marka albo kategoria]/[sku].[rozszerzenie]\n",
+        encoding="utf-8",
+    )
+    _write_csv(
+        outputs / "csv" / "products.csv",
+        [
+            {
+                "sku": "FLAGA-1",
+                "brand": "Szwalnia Kołobrzeska",
+                "category": "Flagi kościelne",
+            }
+        ],
+    )
+
+    category_folder = outputs / "images" / "flagi-koscielne"
+    category_folder.mkdir()
+    (category_folder / "FLAGA-1.jpg").write_bytes(b"image")
+
+    assert image_links.add_public_image_links() == 1
+
+    assert not (category_folder / "FLAGA-1.jpg").exists()
+    assert (outputs / "images" / "szwalnia-kolobrzeska" / "FLAGA-1.jpg").exists()
+
+    row = _read_csv(outputs / "csv" / "products.csv")[0]
+    assert row["zdj1"] == (
+        "https://mojadomena.pl/produkty/szwalnia-kolobrzeska/FLAGA-1.jpg"
+    )
+
+
 def test_updates_excel_with_configured_segment(monkeypatch, tmp_path):
     outputs = _configure_tmp_project(monkeypatch, tmp_path)
     (tmp_path / "ADAPTER_REQUEST.md").write_text(

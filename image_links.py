@@ -7,7 +7,7 @@ import shutil
 import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
-from urllib.parse import quote
+from urllib.parse import quote, unquote, urlsplit
 
 import yaml
 
@@ -54,6 +54,7 @@ SKU_FIELDS = {
 }
 BRAND_FIELDS = {"brand", "marka", "producent", "manufacturer"}
 CATEGORY_FIELDS = {"category", "kategoria", "categories", "breadcrumb"}
+PRODUCTS_PATH_SEGMENTS = {"produkty", "products"}
 
 
 @dataclass(frozen=True)
@@ -360,16 +361,19 @@ def _move_loose_images(product_segments: dict[str, str], settings: ImageLinkSett
         return 0
 
     moved = 0
-    for path in sorted(IMAGES_DIR.iterdir()):
+    for path in sorted(IMAGES_DIR.rglob("*")):
         if not path.is_file() or path.suffix.lower() not in IMAGE_EXTENSIONS:
             continue
 
         base_sku = _image_base_sku(path)
-        segment = settings.configured_segment
+        row_segment = settings.configured_segment
         for key in _sku_lookup_keys(base_sku):
-            segment = segment or product_segments.get(key, "")
-        segment = segment or DEFAULT_IMAGE_SEGMENT
+            row_segment = row_segment or product_segments.get(key, "")
+        row_segment = row_segment or DEFAULT_IMAGE_SEGMENT
+        segment = _link_segment_for(path, settings, row_segment)
         moved += int(_move_image(path, IMAGES_DIR / segment))
+
+    _remove_empty_dirs(IMAGES_DIR)
     return moved
 
 
@@ -427,19 +431,38 @@ def _template_url_for(path: Path, settings: ImageLinkSettings, segment: str) -> 
     return re.sub(r"\[([^\]]+)\]", replace, settings.public_url)
 
 
+def _segment_after_products(url: str) -> str:
+    parts = [part for part in urlsplit(url).path.split("/") if part]
+    for index, part in enumerate(parts[:-1]):
+        if _normalize_label(unquote(part)) in PRODUCTS_PATH_SEGMENTS:
+            next_part = unquote(parts[index + 1])
+            if "[" not in next_part and "]" not in next_part:
+                return _safe_segment(next_part)
+    return ""
+
+
+def _link_segment_for(path: Path, settings: ImageLinkSettings, row_segment: str) -> str:
+    segment = settings.configured_segment or row_segment or DEFAULT_IMAGE_SEGMENT
+    if settings.uses_template:
+        rendered_url = _template_url_for(path, settings, segment)
+        return _segment_after_products(rendered_url) or segment
+    return _segment_after_products(settings.public_url) or segment
+
+
 def _url_for(path: Path, settings: ImageLinkSettings, row_segment: str) -> str:
     if not settings.public_url:
         return ""
 
-    segment = settings.configured_segment or row_segment
-    if path.parent != IMAGES_DIR:
-        segment = segment or path.parent.name
-    segment = segment or DEFAULT_IMAGE_SEGMENT
+    segment = _link_segment_for(path, settings, row_segment)
 
     if settings.uses_template:
         return _template_url_for(path, settings, segment)
 
     file_segment = quote(path.name, safe="")
+    fixed_segment = _segment_after_products(settings.public_url)
+    if fixed_segment:
+        return f"{settings.public_url}/{file_segment}"
+
     segment_segment = quote(segment, safe="")
     return f"{settings.public_url}/{segment_segment}/{file_segment}"
 
