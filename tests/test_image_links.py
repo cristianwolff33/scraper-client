@@ -86,7 +86,7 @@ def test_moves_loose_images_under_category_and_writes_base_url_links(monkeypatch
     assert row["zdj1"] == "https://cdn.example.pl/produkty/lozka-dzieciece/SKU-9.png"
 
 
-def test_moves_existing_image_folder_to_link_segment(monkeypatch, tmp_path):
+def test_moves_existing_image_folder_to_dynamic_link_segment(monkeypatch, tmp_path):
     outputs = _configure_tmp_project(monkeypatch, tmp_path)
     (tmp_path / "ADAPTER_REQUEST.md").write_text(
         "Domena zdjęć: "
@@ -116,6 +116,33 @@ def test_moves_existing_image_folder_to_link_segment(monkeypatch, tmp_path):
     row = _read_csv(outputs / "csv" / "products.csv")[0]
     assert row["zdj1"] == (
         "https://mojadomena.pl/produkty/szwalnia-kolobrzeska/FLAGA-1.jpg"
+    )
+
+
+def test_moves_existing_image_folder_to_static_link_segment(monkeypatch, tmp_path):
+    outputs = _configure_tmp_project(monkeypatch, tmp_path)
+    (tmp_path / "ADAPTER_REQUEST.md").write_text(
+        "Domena zdjęć: "
+        "https://mojadomena.pl/produkty/folder-z-linku/[sku].[rozszerzenie]\n",
+        encoding="utf-8",
+    )
+    _write_csv(
+        outputs / "csv" / "products.csv",
+        [{"sku": "SKU-STATIC", "brand": "Inna marka", "category": "Inna kategoria"}],
+    )
+
+    old_folder = outputs / "images" / "folder-z-danych"
+    old_folder.mkdir()
+    (old_folder / "SKU-STATIC.webp").write_bytes(b"image")
+
+    assert image_links.add_public_image_links() == 1
+
+    assert not (old_folder / "SKU-STATIC.webp").exists()
+    assert (outputs / "images" / "folder-z-linku" / "SKU-STATIC.webp").exists()
+
+    row = _read_csv(outputs / "csv" / "products.csv")[0]
+    assert row["zdj1"] == (
+        "https://mojadomena.pl/produkty/folder-z-linku/SKU-STATIC.webp"
     )
 
 

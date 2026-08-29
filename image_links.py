@@ -356,7 +356,10 @@ def _move_misplaced_output_dirs() -> int:
     return moved
 
 
-def _move_loose_images(product_segments: dict[str, str], settings: ImageLinkSettings) -> int:
+def _move_images_to_link_segment_dirs(
+    product_segments: dict[str, str],
+    settings: ImageLinkSettings,
+) -> int:
     if not IMAGES_DIR.exists():
         return 0
 
@@ -379,7 +382,7 @@ def _move_loose_images(product_segments: dict[str, str], settings: ImageLinkSett
 
 def _organize_images(product_segments: dict[str, str], settings: ImageLinkSettings) -> int:
     moved = _move_misplaced_output_dirs()
-    moved += _move_loose_images(product_segments, settings)
+    moved += _move_images_to_link_segment_dirs(product_segments, settings)
     return moved
 
 

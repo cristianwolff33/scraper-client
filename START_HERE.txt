@@ -30,6 +30,7 @@ These columns point to public image URLs like:
 
 Images are stored under:
    outputs/images/marka-lub-kategoria/SKU.jpg
+The image folder name always matches the segment after /produkty/ in the public URL.
 
 Create adapter scaffold:
    python create_adapter.py --name shop_name --mode requests
