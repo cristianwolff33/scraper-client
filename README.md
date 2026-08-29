@@ -1,4 +1,4 @@
-# Scraper Client
+# Scraper Client 2.0
 
 Gotowa paczka klienta do uruchamiania frameworka scrapującego produkty.
 

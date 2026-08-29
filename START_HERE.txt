@@ -1,4 +1,4 @@
-Scraper Framework
+Scraper Client 2.0
 
 Full documentation is in README.md.
 
