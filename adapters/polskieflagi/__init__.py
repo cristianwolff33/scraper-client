@@ -1,1 +1,0 @@
-"""Adapter for polskieflagi.pl."""

@@ -98,24 +98,24 @@ def test_moves_existing_image_folder_to_dynamic_link_segment(monkeypatch, tmp_pa
         [
             {
                 "sku": "FLAGA-1",
-                "brand": "Szwalnia Kołobrzeska",
-                "category": "Flagi kościelne",
+                "brand": "Segment linku",
+                "category": "Folder z danych",
             }
         ],
     )
 
-    category_folder = outputs / "images" / "flagi-koscielne"
+    category_folder = outputs / "images" / "folder-z-danych"
     category_folder.mkdir()
     (category_folder / "FLAGA-1.jpg").write_bytes(b"image")
 
     assert image_links.add_public_image_links() == 1
 
     assert not (category_folder / "FLAGA-1.jpg").exists()
-    assert (outputs / "images" / "szwalnia-kolobrzeska" / "FLAGA-1.jpg").exists()
+    assert (outputs / "images" / "segment-linku" / "FLAGA-1.jpg").exists()
 
     row = _read_csv(outputs / "csv" / "products.csv")[0]
     assert row["zdj1"] == (
-        "https://mojadomena.pl/produkty/szwalnia-kolobrzeska/FLAGA-1.jpg"
+        "https://mojadomena.pl/produkty/segment-linku/FLAGA-1.jpg"
     )
 
 
