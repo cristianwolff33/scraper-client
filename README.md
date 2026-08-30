@@ -2,6 +2,8 @@
 
 Gotowa paczka klienta do uruchamiania frameworka scrapującego produkty.
 
+Opis zmian w wersji 2.0 znajduje się w [`CHANGELOG.md`](CHANGELOG.md).
+
 Framework służy do pobierania danych produktowych takich jak:
 
 - SKU
