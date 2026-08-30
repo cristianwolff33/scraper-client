@@ -2,6 +2,7 @@
 
 URL - link: tutaj wklej link do strony lub kategorii
 
+# uzupełniamy tylko swoją domenę czyli "mojadomena.pl"
 Domena zdjęć: https://mojadomena.pl/produkty/[marka albo kategoria]/[sku].[rozszerzenie]
 
 Marka:
@@ -37,3 +38,5 @@ Zasady zdjęć:
 - Folder w `outputs/images` ma mieć taką samą nazwę jak segment po `/produkty/` w linku.
 
 Uwagi:
+
+# opcjonalnie mozemy uzupelnic uwagi
