@@ -11,3 +11,5 @@ outputs/*/*
 !outputs/csv/.gitkeep
 !outputs/excel/.gitkeep
 !outputs/images/.gitkeep
+output/
+tmp/pdfs/
