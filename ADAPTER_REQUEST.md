@@ -12,14 +12,9 @@ Pola do pobrania:
 - SKU
 - EAN
 - OPIS
-- opis_dodatkowy1
-- opis_dodatkowy2
-- opis_dodatkowy3
-- opis_dodatkowy4
 - Marka
 - TYTUŁ OFERTY
 - KOD PRODUCENTA
-- UWAGI
 - WSZYSTKIE ZDJĘCIA
 
 Zasady opisu:
