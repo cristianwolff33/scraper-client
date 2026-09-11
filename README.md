@@ -31,13 +31,16 @@ Nie usuwaj `data/framework`, bo zawiera chroniony runtime frameworka.
 
 Wymagania:
 
-- Windows 64-bit
+- Windows 64-bit lub macOS (Intel/Apple Silicon)
 - Python 3.12
 
 W folderze projektu uruchom:
 
 ```bash
+python3.12 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 python -m pip install -r requirements.txt
+python -m playwright install chromium
 ```
 
 ## Konfiguracja Adaptera
@@ -156,7 +159,7 @@ Nazwa folderu w `outputs/images` zawsze odpowiada segmentowi po `/produkty/` w w
 
 ## Ważne Uwagi
 
-- Ta paczka jest przygotowana pod Windows 64-bit i Python 3.12.
+- Ta paczka działa na Windows 64-bit i macOS, wymaga Python 3.12.
 - Folder `outputs` jest miejscem na wygenerowane dane.
 - Nie commituj realnych wyników scrapowania, zdjęć ani cache.
 

@@ -12,10 +12,13 @@ For public image links, set:
 - Marka, for example nazwa-marki
 
 Setup:
-1. Install Python 3.12 on Windows 64-bit.
+1. Install Python 3.12 (Windows 64-bit or macOS).
 2. Open a terminal in this folder.
 3. Run:
+   python3.12 -m venv .venv
+   source .venv/bin/activate   (Windows: .venv\Scripts\activate)
    python -m pip install -r requirements.txt
+   python -m playwright install chromium
 
 Run:
    python run.py --adapter ADAPTER_NAME --export csv,excel
